@@ -15,14 +15,14 @@
  * var rgb = [255, 0, 128]; // 色の定義
  * dst.set(y, x, rgb);      // ある座標の色をセット
  */
-
 process = function(src, dst, width, height, callback) {
     for (var i = 0; i < height; i++) {
         for (var j = 0; j < width; j++) {
             var rgb = src.get(i, j);
-            dst.set(i, j, rgb);
+            dst.set(i, width - 1 - j, rgb);
         }
     }
 
     callback();
 }
+

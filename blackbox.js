@@ -28,7 +28,7 @@ init(function(img) {
     var srcObj = context.getImageData(0, 0, width, height);
     context.putImageData(srcObj, 0, 0);
     var dataurl = canvas.toDataURL();
-    document.getElementById("input").innerHTML = "<img src='" + dataurl + "'>";
+    document.getElementById("input").innerHTML = "Input: <br><img src='" + dataurl + "'>";
     document.getElementById("message").innerHTML = "Processing Image...";
 
     // set original functions
@@ -54,7 +54,7 @@ init(function(img) {
 
         context.putImageData(srcObj, 0, 0);
         var dataurl = canvas.toDataURL();
-        document.getElementById("output").innerHTML = "<img src='" + dataurl + "'>";
+        document.getElementById("output").innerHTML = "Output: <br><img src='" + dataurl + "'>";
         document.getElementById("message").innerHTML = "Finish!!";
     }), 0);
 });
