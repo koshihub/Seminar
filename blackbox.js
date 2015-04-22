@@ -33,11 +33,11 @@ init(function(img) {
 
     // set original functions
     var dst = new Array(width * height * 4);
-    dst.set = function(i, j, rgb) {
+    dst.set = function(j, i, rgb) {
         var idx = (j + i * width) * 4;
         this[idx] = rgb[0]; this[idx+1] = rgb[1]; this[idx+2] = rgb[2];
     };
-    srcObj.data.get = function(i, j) {
+    srcObj.data.get = function(j, i) {
         var idx = (j + i * width) * 4;
         return [this[idx], this[idx+1], this[idx+2]];
     };

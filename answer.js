@@ -15,24 +15,14 @@
  * var rgb = [255, 0, 128]; // 色の定義
  * dst.set(y, x, rgb);      // ある座標の色をセット
  */
-process = function(src, dst, width, height, callback) {
-    for (var i = 0; i < height; i++) {
-        for (var j = 0; j < width; j++) {
-            var rgb = src.get(i, j);
-            dst.set(i, width - 1 - j, rgb);
-        }
-    }
-
-    callback();
-}
 
 // 上下反転
 if (false)
 process = function(src, dst, width, height, callback) {
     for (var i = 0; i < height; i++) {
         for (var j = 0; j < width; j++) {
-            var rgb = src.get(i, j);
-            dst.set(height - 1 - i, j, rgb);
+            var rgb = src.get(j, i);
+            dst.set(j, height - 1 - i, rgb);
         }
     }
 
@@ -44,9 +34,9 @@ if (false)
 process = function(src, dst, width, height, callback) {
     for (var i = 0; i < height; i++) {
         for (var j = 0; j < width; j++) {
-            var rgb = src.get(i, j);
+            var rgb = src.get(j, i);
             var newrgb = [255 - rgb[0], 255 - rgb[1], 255 - rgb[2]];
-            dst.set(i, width - 1 - j, newrgb);
+            dst.set(j, i, newrgb);
         }
     }
 
@@ -54,13 +44,13 @@ process = function(src, dst, width, height, callback) {
 }
 
 // グレースケール変換
-if (false)
+if (true)
 process = function(src, dst, width, height, callback) {
     for (var i = 0; i < height; i++) {
         for (var j = 0; j < width; j++) {
-            var rgb = src.get(i, j);
+            var rgb = src.get(j, i);
             var gray = (rgb[0] + rgb[1] + rgb[2]) / 3;
-            dst.set(i, width - 1 - j, [gray, gray, gray]);
+            dst.set(j, i, [gray, gray, gray]);
         }
     }
 
@@ -72,12 +62,13 @@ if (false)
 process = function(src, dst, width, height, callback) {
     var s = 2; // ぼかしの半径
     var ss = (1 + 2 * s) * (1 + 2 * s);
+    
     for (var i = s; i < height - s; i++) {
         for (var j = s; j < width - s; j++) {
             var c = [0, 0, 0];
             for (var x = -s; x <= s; x++) {
                 for(var y = -s; y <= s; y++) {
-                    var rgb = src.get(i + y, j + x);
+                    var rgb = src.get(j + x, i + y);
                     c[0] += rgb[0];
                     c[1] += rgb[1];
                     c[2] += rgb[2];
@@ -86,7 +77,7 @@ process = function(src, dst, width, height, callback) {
             c[0] /= ss;
             c[1] /= ss;
             c[2] /= ss;
-            dst.set(i, j, c);
+            dst.set(j, i, c);
         }
     }
 
@@ -115,7 +106,7 @@ process = function(src, dst, width, height, callback) {
                     var x2 = Math.floor(((nxn + 1) * width) / 2.0);
                     var y2 = Math.floor(((nyn + 1) * height) / 2.0);
                     if (x2 >= 0 && x2 < width && y2 >= 0 && y2 < height) {
-                        dst.set(y, x, src.get(y2, x2));
+                        dst.set(x, y, src.get(x2, y2));
                     }
                 }
             }

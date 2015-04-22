@@ -18,8 +18,8 @@
 process = function(src, dst, width, height, callback) {
     for (var i = 0; i < height; i++) {
         for (var j = 0; j < width; j++) {
-            var rgb = src.get(i, j);
-            dst.set(i, width - 1 - j, rgb);
+            var rgb = src.get(j, i);
+            dst.set(j, i, rgb);
         }
     }
 
